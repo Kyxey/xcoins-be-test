@@ -39,6 +39,10 @@ Here's a complete list of all of the available scripts that you can run using th
 | `format`  | Formats every code inside the `src` directory with [Prettier](https://prettier.io/). | There should be no syntax or tslint error in the code otherwise the script will fail. |
 | `test`  | Runs the tests that are located inside the `tests` directory and generates the code coverage data to make sure the code is good and clean. **Note:** The `seed` script will run automatically before the script to make sure the DB is populated with dummy data. | The code should generate the same result that each test expects otherwise the tests would fail. |
 | `test:watch`  | Runs the tests that are located inside the `tests` directory in the watch mode so every code change will rerun the tests. **Note:** The `seed` script will run automatically before the script to make sure the DB is populated with dummy data. | The code should generate the same result that each test expects otherwise the tests would fail. |
+| `release`  | Releases a new version and generates the new changelog file for semantic versioning. See [the oficial standard-version Github](https://github.com/conventional-changelog/standard-version) for a guide on how to use this script. | There should be committed changes in the code. |
+| `release:major`  | Releases a major tag and generates the changelog. Useful for when there are new feature implementations or any other major changes to the code. | There should be committed changes in the code. |
+| `release:minor`  | Releases a minor tag and generates the changelog. Useful for when there are backward compatible changes that contain no major or breaking changes. | There should be committed changes in the code. |
+| `release:patch`  | Releases a patch tag and generates the changelog. Useful for small interchangeable modifies like hotfixes or even simply bug fixes. | There should be committed changes in the code. |
 
 ## Folder Structure
 Below you find the complete folder structure of the project with detailed descriptions:
