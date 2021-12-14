@@ -1,7 +1,9 @@
+import { Router } from "express";
 import Joi from "joi";
-import { router } from "../utils/router";
 import { handleError } from "../utils/error";
 import Favorite from "../models/Favorite";
+
+const router = Router();
 
 router.get("/api/favorite", async (_req, res) => {
   const favorite = await Favorite.find().lean();
@@ -26,3 +28,5 @@ router.get("/api/favorite/:profile_id", async (req, res) => {
   const data = await Favorite.find(reqParams);
   res.json(data);
 });
+
+export default router;

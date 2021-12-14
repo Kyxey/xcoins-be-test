@@ -1,7 +1,9 @@
-import { router } from "../utils/router";
-import Simulator from "../models/Simulator";
+import { Router } from "express";
 import Joi from "joi";
+import Simulator from "../models/Simulator";
 import { handleError } from "../utils/error";
+
+const router = Router();
 
 router.get("/api/simulator", async (_req, res) => {
   const simulator = await Simulator.find().lean();
@@ -52,3 +54,5 @@ router.post("/api/simulator", async (req, res) => {
   const simulator = await Simulator.create(reqBody);
   res.json(simulator);
 });
+
+export default router;

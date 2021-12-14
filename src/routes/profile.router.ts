@@ -1,7 +1,9 @@
+import { Router } from "express";
 import Joi from "joi";
-import { router } from "../utils/router";
 import Profile from "../models/Profile";
 import { handleError } from "../utils/error";
+
+const router = Router();
 
 router.get("/api/profile", async (_req, res) => {
   const profile = await Profile.find().lean();
@@ -36,3 +38,5 @@ router.post("/api/profile", async (req, res) => {
 
   res.json(profile);
 });
+
+export default router;
