@@ -1,5 +1,5 @@
 import Request from "supertest";
-import App from "../src/api";
+import App from "../src";
 import Joi from "joi";
 
 const profileSchema = Joi.object().keys({

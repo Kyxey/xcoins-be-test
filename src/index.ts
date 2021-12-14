@@ -7,11 +7,12 @@ import FavoriteRouter from "./routes/favorite.router";
 import ProfileRouter from "./routes/profile.router";
 import SimulatorRouter from "./routes/simulator.router";
 
+const app = express();
+
 async function main() {
   await mongoose.connect(DBURL);
   console.log(`Connected to DB ${DBURL}`);
 
-  const app = express();
   app.use(cors({ origin: CORS_ORIGINS }));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
@@ -25,3 +26,5 @@ async function main() {
 }
 
 main();
+
+export default app;
