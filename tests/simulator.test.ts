@@ -1,5 +1,5 @@
 import Request from "supertest";
-import App from "../src";
+import app from "../src";
 import Joi from "joi";
 
 const simulatorSchema = Joi.object().keys({
@@ -12,11 +12,15 @@ const simulatorSchema = Joi.object().keys({
   start_date: Joi.date().required(),
   check_date: Joi.date().required(),
   divisa: Joi.string().required(),
+  createdAt: Joi.date().required(),
+  updatedAt: Joi.date().required(),
+  __v: Joi.number().required(),
 });
+const agent = Request.agent(app);
 
 describe("Simulator", () => {
   it("Should get all simulators", async () => {
-    const res = await Request(App).get("/api/simulator");
+    const res = await agent.get("/api/simulator");
 
     expect(res.statusCode >= 200 && res.statusCode < 300).toBeTruthy();
 
@@ -26,24 +30,24 @@ describe("Simulator", () => {
 
     const { error } = schema.validate(res.body);
 
-    expect(error).toBeNull();
+    expect(error).toBeUndefined();
   });
 
   it("Should get simulator of profile ID", async () => {
-    const profileRes = await Request(App).get("/api/profile");
-    const res = await Request(App).get(
+    const profileRes = await agent.get("/api/profile");
+    const res = await agent.get(
       `/api/simulator/${profileRes.body.profile[0]._id}`
     );
 
     expect(res.statusCode >= 200 && res.statusCode < 300).toBeTruthy();
 
-    const { error } = simulatorSchema.validate(res.body);
+    const { error } = Joi.array().items(simulatorSchema).validate(res.body);
 
-    expect(error).toBeNull();
+    expect(error).toBeUndefined();
   });
 
   it("Should create a new simulator for an specific profile ID", async () => {
-    const profileRes = await Request(App).get("/api/profile");
+    const profileRes = await agent.get("/api/profile");
     const sendObject = {
       profile_id: profileRes.body.profile[0]._id,
       name: "Test",
@@ -54,12 +58,12 @@ describe("Simulator", () => {
       crypto_price_start: 124,
       crypto_price_check: 124,
     };
-    const res = await Request(App).post("/api/simulator").send(sendObject);
+    const res = await agent.post("/api/simulator").send(sendObject);
 
     expect(res.statusCode >= 200 && res.statusCode < 300).toBeTruthy();
 
     const { error } = simulatorSchema.validate(res.body);
 
-    expect(error).toBeNull();
+    expect(error).toBeUndefined();
   });
 });

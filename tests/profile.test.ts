@@ -1,5 +1,5 @@
 import Request from "supertest";
-import App from "../src";
+import app from "../src";
 import Joi from "joi";
 
 const profileSchema = Joi.object().keys({
@@ -10,11 +10,14 @@ const profileSchema = Joi.object().keys({
   capital: Joi.number(),
   divisa: Joi.string(),
   preferred_cryptocurrency: Joi.string().required().min(3).max(6),
+  __v: Joi.number().required(),
 });
+
+const agent = Request.agent(app);
 
 describe("Profile", () => {
   it("Should get all profiles", async () => {
-    const res = await Request(App).get("/api/profile");
+    const res = await agent.get("/api/profile");
 
     expect(res.statusCode >= 200 && res.statusCode < 300).toBeTruthy();
 
@@ -24,21 +27,21 @@ describe("Profile", () => {
 
     const { error } = schema.validate(res.body);
 
-    expect(error).toBeNull();
+    expect(error).toBeUndefined();
   });
 
   it("Should get an specific profile", async () => {
     const sendObject = {
-      email: "test@test.test",
+      email: "test@gmail.com",
       nickname: "String",
     };
-    const res = await Request(App).post("/api/profile").send(sendObject);
+    const res = await agent.post("/api/profile").send(sendObject);
 
     expect(res.statusCode >= 200 && res.statusCode < 300).toBeTruthy();
 
     const { error } = profileSchema.validate(res.body);
 
-    expect(error).toBeNull();
+    expect(error).toBeUndefined();
 
     expect(res.body.email).toEqual(sendObject.email);
     expect(res.body.nickname).toEqual(sendObject.nickname);
@@ -48,17 +51,17 @@ describe("Profile", () => {
     const sendObject = {
       name: "Test",
       nickname: "Test",
-      email: "test1@test.test",
+      email: "test1@gmail.com",
       capital: 124,
       divisa: "Strings",
-      preferred_cryptocurrency: "Strings",
+      preferred_cryptocurrency: "string",
     };
-    const res = await Request(App).post("/api/profile").send(sendObject);
+    const res = await agent.post("/api/profile").send(sendObject);
 
     expect(res.statusCode >= 200 && res.statusCode < 300).toBeTruthy();
 
     const { error } = profileSchema.validate(res.body);
 
-    expect(error).toBeNull();
+    expect(error).toBeUndefined();
   });
 });

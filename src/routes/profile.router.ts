@@ -18,7 +18,7 @@ router.post("/api/profile", async (req, res) => {
     email: Joi.string().email(),
     capital: Joi.number(),
     divisa: Joi.string(),
-    preferred_cryptocurrency: Joi.string().required().min(3).max(6),
+    preferred_cryptocurrency: Joi.string().min(3).max(6),
   });
 
   const reqBody = req.body;

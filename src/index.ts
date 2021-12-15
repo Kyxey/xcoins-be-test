@@ -1,5 +1,5 @@
 import express from "express";
-import { PORT, DBURL, CORS_ORIGINS } from "./configs";
+import { PORT, DBURL, CORS_ORIGINS, NODE_ENV } from "./configs";
 import cors from "cors";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -20,9 +20,11 @@ async function main() {
   app.use(ProfileRouter);
   app.use(SimulatorRouter);
 
-  app.listen(PORT, () =>
-    console.log(`✅  Ready on port http://localhost:${PORT}`)
-  );
+  if (NODE_ENV !== "test") {
+    app.listen(PORT, () =>
+      console.log(`✅  Ready on port http://localhost:${PORT}`)
+    );
+  }
 }
 
 main();

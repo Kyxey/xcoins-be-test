@@ -10,7 +10,7 @@ import { DBURL } from "../configs";
   const profile = new Profile({
     name: "String",
     nickname: "String",
-    email: "test@test.test",
+    email: "test@gmail.com",
     capital: 123,
     divisa: "String",
     preferred_cryptocurrency: "String",
