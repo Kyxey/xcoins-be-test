@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/Kyxey/xcoins-be-test/compare/v1.1.1...v1.1.2) (2021-12-15)
+
+
+### Bug Fixes
+
+* the tests failing and the seed data and the validators ([3ec3b31](https://github.com/Kyxey/xcoins-be-test/commit/3ec3b31af750602195971587d0473673d2164b70))
+
 ### [1.1.1](https://github.com/Kyxey/xcoins-be-test/compare/v1.1.0...v1.1.1) (2021-12-14)
 
 
